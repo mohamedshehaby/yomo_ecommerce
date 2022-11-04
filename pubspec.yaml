@@ -11,7 +11,9 @@ environment:
 dependencies:
   bloc: ^8.1.0
   bottom_navy_bar: ^6.0.0
+  cached_network_image: ^3.2.2
   card_loading: ^0.2.2
+  carousel_slider: ^4.1.1
   cloud_firestore: ^3.5.1
   cupertino_icons: ^1.0.5
   dartz: ^0.10.1
@@ -28,6 +30,7 @@ dependencies:
   formz: ^0.4.1
   get_it: ^7.2.0
   internet_connection_checker: ^1.0.0+1
+  intl: ^0.17.0
   lottie: ^1.4.3
   shared_preferences: ^2.0.15
   uuid: ^3.0.6

@@ -1,41 +1,52 @@
 import 'package:equatable/equatable.dart';
+import 'package:yomo_ecommerce/domain/models/item.dart';
 import 'package:yomo_ecommerce/domain/models/product.dart';
 
-class CartItem extends Equatable {
-  final String id;
-  final String name;
-  final String imageUrl;
-  final double price;
-  final String category;
-  final int quantity;
-
+class CartItem extends Item {
+  final int maxQuantity;
   const CartItem({
-    required this.id,
-    required this.name,
-    required this.imageUrl,
-    required this.category,
-    required this.price,
-    required this.quantity,
+    required this.maxQuantity,
+    required super.id,
+    required super.name,
+    required super.imageUrl,
+    required super.category,
+    required super.price,
+    required super.quantity,
   });
-
-  @override
-  List<Object> get props => [
-        id,
-        name,
-        imageUrl,
-        price,
-        category,
-        quantity,
-      ];
 
   factory CartItem.fromProduct(Product product) {
     return CartItem(
+      maxQuantity: product.quantity,
       id: product.id,
       name: product.name,
       imageUrl: product.imageUrl,
       category: product.category,
       price: product.price,
       quantity: 1,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'imageUrl': imageUrl,
+      'price': price,
+      'category': category,
+      'quantity': quantity,
+      'maxQuantity': maxQuantity
+    };
+  }
+
+  factory CartItem.fromMap(Map<String, dynamic> map) {
+    return CartItem(
+      maxQuantity: map['maxQuantity'] as int,
+      id: map['id'] as String,
+      name: map['name'] as String,
+      imageUrl: map['imageUrl'] as String,
+      price: map['price'] as double,
+      category: map['category'] as String,
+      quantity: map['quantity'] as int,
     );
   }
 }

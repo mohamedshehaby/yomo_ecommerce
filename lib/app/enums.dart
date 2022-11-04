@@ -1,0 +1,1 @@
+enum Payment { cash, visa }

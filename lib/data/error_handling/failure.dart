@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show immutable;
 
-import '../../presentation/resources/strings_manager.dart';
+import 'package:yomo_ecommerce/presentation/resources/strings_manager.dart';
 
 class Failure {
   final String title;

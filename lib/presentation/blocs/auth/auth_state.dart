@@ -34,3 +34,14 @@ class AuthFailureState extends AuthState {
   @override
   List<Object> get props => [failure];
 }
+
+extension User on AuthState {
+  AppUser? get user {
+    final cs = this;
+    if (cs is AuthLoggedInState) {
+      return cs.user;
+    } else {
+      return null;
+    }
+  }
+}

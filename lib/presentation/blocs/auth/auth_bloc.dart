@@ -9,6 +9,7 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Repository repository;
+
   AuthBloc({required this.repository}) : super(AuthLoggedOutState()) {
     on<AuthStarted>(_onStarted);
     on<AuthSignupEvent>(_onSignup);

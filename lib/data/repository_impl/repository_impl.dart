@@ -5,9 +5,7 @@ import 'package:yomo_ecommerce/data/data_source/remote_data_source.dart';
 import 'package:yomo_ecommerce/data/error_handling/exceptions.dart';
 import 'package:yomo_ecommerce/data/error_handling/failure.dart';
 import 'package:yomo_ecommerce/data/network/network_info.dart';
-import 'package:yomo_ecommerce/domain/models/app_user.dart';
-import 'package:yomo_ecommerce/domain/models/category.dart';
-import 'package:yomo_ecommerce/domain/models/product.dart';
+import 'package:yomo_ecommerce/domain/models/models.dart';
 import 'package:yomo_ecommerce/domain/repository/repository.dart';
 import 'package:yomo_ecommerce/presentation/resources/strings_manager.dart';
 
@@ -152,6 +150,78 @@ class RepositoryImpl implements Repository {
         return const Right(null);
       } on FirebaseAuthException catch (e) {
         return Left(Failure.from(e));
+      } catch (e) {
+        return Left(Failure(title: AppStrings.errorHappened, message: e.toString()));
+      }
+    } else {
+      return Left(Failure.noInternet());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> uploadCart(List<CartItem> items, String userId) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        await _remoteDataSource.uploadCart(items, userId);
+
+        return const Right(null);
+      } on FirebaseException catch (e) {
+        return Left(Failure(title: e.code, message: e.message ?? AppStrings.empty));
+      } catch (e) {
+        return Left(Failure(title: AppStrings.errorHappened, message: e.toString()));
+      }
+    } else {
+      return Left(Failure.noInternet());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CartItem>>> getCart(String userId) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        // Get all Cart Items docs
+        final docs = await _remoteDataSource.getCart(userId);
+        // Convert it to List<CartItem>
+        final cartItems =
+            docs.map((doc) => CartItem.fromMap(doc.data() as Map<String, dynamic>)).toList();
+
+        return Right(cartItems);
+      } on FirebaseException catch (e) {
+        return Left(Failure(title: e.code, message: e.message ?? e.plugin));
+      } catch (e) {
+        return Left(Failure(title: AppStrings.errorHappened, message: e.toString()));
+      }
+    } else {
+      return Left(Failure.noInternet());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> uploadOrder(UserOrder order, String userId) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        await _remoteDataSource.uploadOrder(order, userId);
+        return const Right(null);
+      } on FirebaseException catch (e) {
+        return Left(Failure(title: e.code, message: e.message ?? e.plugin));
+      } catch (e) {
+        return Left(Failure(title: AppStrings.errorHappened, message: e.toString()));
+      }
+    } else {
+      return Left(Failure.noInternet());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<UserOrder>>> getUserOrder(String userId) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final docs = await _remoteDataSource.getUserOrder(userId);
+        final orders =
+            docs.map((doc) => UserOrder.fromMap(doc.data() as Map<String, dynamic>)).toList();
+        return (Right(orders));
+      } on FirebaseException catch (e) {
+        return Left(Failure(title: e.code, message: e.message ?? e.plugin));
       } catch (e) {
         return Left(Failure(title: AppStrings.errorHappened, message: e.toString()));
       }

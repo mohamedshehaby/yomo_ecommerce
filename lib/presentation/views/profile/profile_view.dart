@@ -11,7 +11,6 @@ class ProfileView extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state is AuthLoggedOutState) {
-          print(state.toString());
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -23,7 +22,6 @@ class ProfileView extends StatelessWidget {
             ],
           );
         }
-        print(state.toString());
         return Center(
           child: ElevatedButton(
             onPressed: () => context.read<AuthBloc>().add(AuthLogoutEvent()),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yomo_ecommerce/domain/models/product.dart';
-
 import 'package:yomo_ecommerce/domain/models/cart.dart';
+import 'package:yomo_ecommerce/domain/models/product.dart';
 import 'package:yomo_ecommerce/presentation/blocs/cart/cart_bloc.dart';
 import 'package:yomo_ecommerce/presentation/resources/strings_manager.dart';
 
@@ -23,11 +22,6 @@ class AddOrModifyCart extends StatelessWidget {
             return _buildModifyCartSection(context, cartItem);
           }
         }
-        if (state is CartLoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
         return _buildAddToCartButton(context);
       },
     );
@@ -36,23 +30,24 @@ class AddOrModifyCart extends StatelessWidget {
   Row _buildModifyCartSection(BuildContext context, CartItem cartItem) {
     return Row(
       children: [
-        Expanded(
-          flex: 2,
-          child: ElevatedButton(
-            onPressed: () => context.read<CartBloc>().add(CartProductAdded(cartItem: cartItem)),
-            child: const Icon(Icons.add),
-          ),
-        ),
+        (cartItem.maxQuantity == cartItem.quantity)
+            ? const Expanded(
+                flex: 2,
+                child: ElevatedButton(onPressed: null, child: FittedBox(child: Icon(Icons.add))),
+              )
+            : Expanded(
+                flex: 2,
+                child: ElevatedButton(
+                  onPressed: () =>
+                      context.read<CartBloc>().add(CartProductAdded(cartItem: cartItem)),
+                  child: const FittedBox(child: Icon(Icons.add)),
+                ),
+              ),
         Expanded(
           flex: 3,
-          child: Column(
-            children: [
-              const Text('In cart'),
-              Text(
-                cartItem.quantity.toString(),
-                textAlign: TextAlign.center,
-              ),
-            ],
+          child: Text(
+            cartItem.quantity.toString(),
+            textAlign: TextAlign.center,
           ),
         ),
         Expanded(
@@ -60,7 +55,7 @@ class AddOrModifyCart extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () => context.read<CartBloc>().add(CartProductRemoved(cartItem: cartItem)),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Icon(Icons.remove),
+            child: const FittedBox(child: Icon(Icons.remove)),
           ),
         ),
       ],

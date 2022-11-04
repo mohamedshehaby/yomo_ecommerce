@@ -1,5 +1,4 @@
 export 'auth/login/login_view.dart';
-export 'auth/signup/signup_view.dart';
 export 'cart/cart_view.dart';
 export 'home/home_view.dart';
 export 'main/main_view.dart';

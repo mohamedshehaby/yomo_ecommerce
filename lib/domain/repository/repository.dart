@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:yomo_ecommerce/data/error_handling/failure.dart';
-import 'package:yomo_ecommerce/domain/models/app_user.dart';
-import 'package:yomo_ecommerce/domain/models/category.dart';
-import 'package:yomo_ecommerce/domain/models/product.dart';
+import 'package:yomo_ecommerce/domain/models/models.dart';
 
 abstract class Repository {
   /// [getAllCategories] from firebase or return failure
@@ -22,4 +20,16 @@ abstract class Repository {
 
   /// [getUserLocally] form local app preferences
   Future<Either<void, AppUser>> getUserLocally();
+
+  /// [uploadCart]
+  Future<Either<Failure, void>> uploadCart(List<CartItem> items, String userId);
+
+  /// [getCart]
+  Future<Either<Failure, List<CartItem>>> getCart(String userId);
+
+  /// [uploadOrder]
+  Future<Either<Failure, void>> uploadOrder(UserOrder order, String userId);
+
+  /// [getUserOrder]
+  Future<Either<Failure, List<UserOrder>>> getUserOrder(String userId);
 }

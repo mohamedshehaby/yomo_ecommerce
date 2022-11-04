@@ -14,7 +14,22 @@ class AppStrings {
   static const confirmPasswordError = 'Password donsn\'t match';
   static const name = 'Name';
   static const nameError = 'Name must be at least 8 characters';
+  static const address = 'Address';
+  static const addressError = 'Address must be at least 8 characters';
+  static const city = 'City';
+  static const cityError = 'City must be at least 5 characters';
+  static const state = 'State';
+  static const stateError = 'State must be at least 4 characters';
+  static const zipcode = 'Zipcode';
+  static const zipcodeError = 'Zipcode must be at least 4 digits';
+  static const phone = 'phone';
+  static const phoneError = 'Phone must be at least 11 digits';
+  static const orderNow = 'Order Now';
+
   static const login = 'Login';
+  static const loggingYou = 'Logging you in ';
+  static const loginToViewOrders = 'Login to view Orders';
+  static const noOrdersYet = 'No Orders yet';
   static const createNewAccount = 'Dosn\'t have account, create a new one';
   static const alreadyHaveAccount = 'Already have account, Login instead';
   static const signup = 'Signup';

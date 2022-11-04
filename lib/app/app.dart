@@ -6,6 +6,8 @@ import 'package:yomo_ecommerce/presentation/blocs/cart/cart_bloc.dart';
 import 'package:yomo_ecommerce/presentation/resources/routes_manager.dart';
 import 'package:yomo_ecommerce/presentation/resources/theme_manager.dart';
 
+import 'package:yomo_ecommerce/presentation/blocs/order/order_bloc.dart';
+
 class MyApp extends StatelessWidget {
   /// Static [_instance] to be accessed from any where
   // and Still be one instance
@@ -22,11 +24,12 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => CartBloc()..add(CartStarted()),
+          create: (context) => CartBloc(instance()),
         ),
         BlocProvider(
           create: (context) => AuthBloc(repository: instance())..add(AuthStarted()),
-        )
+        ),
+        BlocProvider(create: (context) => OrderBloc(instance()))
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

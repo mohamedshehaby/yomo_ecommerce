@@ -30,4 +30,24 @@ class CartProductRemoved extends CartEvent {
   List<Object> get props => [cartItem];
 }
 
-class CartStarted extends CartEvent {}
+class CartStarted extends CartEvent {
+  final String? userId;
+
+  const CartStarted({
+    this.userId,
+  });
+
+  @override
+  List<Object?> get props => [userId];
+}
+
+class CartUploaded extends CartEvent {
+  final String userId;
+
+  const CartUploaded({
+    required this.userId,
+  });
+
+  @override
+  List<Object> get props => [userId];
+}
