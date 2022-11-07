@@ -16,16 +16,20 @@ import 'package:yomo_ecommerce/presentation/views/product_details/product_detail
 import 'package:yomo_ecommerce/presentation/views/products/products_view.dart';
 import 'package:yomo_ecommerce/presentation/views/splash/splash_view.dart';
 
+import '../../domain/models/user_order.dart';
+import '../views/order_details/order_details.dart';
+
 class Routes {
   static const String splashRoute = '/splash';
   static const String loginRoute = '/login';
   static const String signupRoute = '/signup';
   static const String forgotPasswordRoute = '/forgotPassword';
+  static const String mainRoute = '/main';
   static const String homeRoute = '/home';
   static const String checkoutRoute = '/checkout';
   static const String productsRoute = '/products';
   static const String productDetailsRoute = '/product-details';
-  static const String mainRoute = '/main';
+  static const String orderDetailsRoute = '/order-details';
 }
 
 class RoutesGenerator {
@@ -75,6 +79,14 @@ class RoutesGenerator {
             create: (context) => CheckoutBloc(),
             child: const CheckoutView(),
           ),
+        );
+      case Routes.orderDetailsRoute:
+        return MaterialPageRoute(
+          builder: (_) {
+            return OrderDetails(
+              order: settings.arguments as UserOrder,
+            );
+          },
         );
 
       default:

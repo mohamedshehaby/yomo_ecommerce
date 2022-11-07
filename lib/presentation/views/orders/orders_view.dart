@@ -5,7 +5,8 @@ import 'package:yomo_ecommerce/presentation/blocs/auth/auth_bloc.dart';
 import 'package:yomo_ecommerce/presentation/blocs/order/order_bloc.dart';
 import 'package:yomo_ecommerce/presentation/resources/resources.dart';
 
-import '../../../domain/models/user_order.dart';
+import '../../../app/functions.dart';
+import 'package:yomo_ecommerce/domain/models/user_order.dart';
 import '../../widgets/error/error_screen.dart';
 
 part 'widgets/empty_order.dart';
@@ -17,9 +18,7 @@ class OrdersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
-      builder: (context, state) {
-        return BlocBuilder<AuthBloc, AuthState>(
+    return  BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
             if (state is AuthLoggedOutState) {
               return const UserNotFound();
@@ -49,9 +48,8 @@ class OrdersView extends StatelessWidget {
             return Container();
           },
         );
-      },
-    );
-  }
+      }
+
 
   loadOrders(BuildContext context, userId) {
     context.read<OrderBloc>().add(OrderGetUserOrder(userId: userId));

@@ -24,7 +24,18 @@ class AppStrings {
   static const zipcodeError = 'Zipcode must be at least 4 digits';
   static const phone = 'phone';
   static const phoneError = 'Phone must be at least 11 digits';
+  static const paymentMethod = 'Payment Method';
   static const orderNow = 'Order Now';
+  static const orderDetails = 'Order Details';
+
+  static const orderSummary = 'Order Summary';
+  static const deliveryInfo = 'Delivery Info';
+  static const orderItems = 'Order Items';
+  static const statusInfo = 'Status Info';
+  static const createdAt = 'Created At';
+  static const confirmedAt = 'Confirmed At';
+  static const deliveredAt = 'Delivered At';
+  static const waiting = 'Waiting';
 
   static const login = 'Login';
   static const loggingYou = 'Logging you in ';

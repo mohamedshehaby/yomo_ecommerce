@@ -52,7 +52,10 @@ class CheckoutView extends StatelessWidget {
               const ZipcodeTextField(),
               const PhoneTextField(),
               const PaymentOptions(),
-              OrderSummary(cart: context.read<CartBloc>().state.cart!),
+              OrderSummary(
+                subTotal: context.read<CartBloc>().state.cart!.subTotal,
+                deliverFee: context.read<CartBloc>().state.cart!.deliverFee,
+              ),
               const OrderNowButton()
             ],
           ),

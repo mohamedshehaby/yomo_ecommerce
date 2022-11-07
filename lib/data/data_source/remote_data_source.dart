@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:yomo_ecommerce/data/error_handling/exceptions.dart';
 import 'package:yomo_ecommerce/domain/models/app_user.dart';
 import 'package:yomo_ecommerce/domain/models/cart.dart';
@@ -46,11 +47,14 @@ abstract class RemoteDataSource {
   Future<void> uploadOrder(UserOrder order, String userId);
 
   Future<List<QueryDocumentSnapshot>> getUserOrder(String userId);
+
+  Future<void> removeUser(String userId);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
   final _firestore = FirebaseFirestore.instance;
   final _fireAuth = FirebaseAuth.instance;
+  final _storageRef = FirebaseStorage.instance.ref();
 
   @override
   Future<List<QueryDocumentSnapshot>> getAllCategories() {
@@ -147,6 +151,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     }
   }
 
+  Future<void> removeUserOrders(String userId) async {
+    var querySnapshot = await _firestore.collection(users).doc(userId).collection(orders).get();
+    for (var doc in querySnapshot.docs) {
+      await doc.reference.delete();
+    }
+  }
+
   @override
   Future<void> uploadOrder(UserOrder order, String userId) async {
     await removeUserCartItems(userId);
@@ -164,5 +175,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         .get()
         .then((querySnapshot) => querySnapshot.docs);
     return docs;
+  }
+
+  @override
+  Future<void> removeUser(String userId) async {
+    await _fireAuth.currentUser?.delete();
+    await _firestore.collection('users').doc(userId).delete();
+    await removeUserCartItems(userId);
+    await removeUserOrders(userId);
   }
 }

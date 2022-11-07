@@ -6,7 +6,7 @@ class CheckoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p36),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
       child: ElevatedButton(
         onPressed: () async {
           final user = context.read<AuthBloc>().state.user;

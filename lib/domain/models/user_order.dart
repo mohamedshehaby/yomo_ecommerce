@@ -1,6 +1,4 @@
 import 'package:uuid/uuid.dart';
-import 'package:yomo_ecommerce/domain/models/cart.dart';
-import 'package:yomo_ecommerce/domain/models/item.dart';
 import 'package:yomo_ecommerce/domain/models/models.dart';
 
 class OrderItem extends Item {
@@ -49,6 +47,9 @@ class OrderItem extends Item {
 class UserOrder {
   final String id;
   final DateTime createdAt;
+  final DateTime? confirmedAt;
+  final DateTime? deliveredAt;
+
   final List<OrderItem> items;
   final String paymentOption;
   final String status;
@@ -75,6 +76,8 @@ class UserOrder {
     required this.governorate,
     required this.phone,
     required this.zipcode,
+    this.confirmedAt,
+    this.deliveredAt,
   });
 
   UserOrder.init({
@@ -90,7 +93,9 @@ class UserOrder {
     required this.city,
   })  : id = const Uuid().v4(),
         createdAt = DateTime.now(),
-        status = 'pending';
+        status = 'pending',
+        confirmedAt = null,
+        deliveredAt = null;
 
   Map<String, dynamic> toMap() {
     return {
@@ -107,6 +112,8 @@ class UserOrder {
       'governorate': governorate,
       'phone': phone,
       'zipcode': zipcode,
+      'confirmedAt': confirmedAt,
+      'deliveredAt': deliveredAt
     };
   }
 
@@ -125,6 +132,8 @@ class UserOrder {
       governorate: map['governorate'] as String,
       phone: map['phone'] as String,
       zipcode: map['zipcode'] as String,
+      confirmedAt: (map['confirmedAt'] == null) ? null : (map['confirmedAt']).toDate() as DateTime?,
+      deliveredAt: (map['deliveredAt'] == null) ? null : (map['deliveredAt']).toDate() as DateTime?,
     );
   }
 }

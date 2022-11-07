@@ -32,4 +32,10 @@ abstract class Repository {
 
   /// [getUserOrder]
   Future<Either<Failure, List<UserOrder>>> getUserOrder(String userId);
+
+  /// [getUser]
+  Future<Either<Failure, AppUser>> getUser(String userId);
+
+  /// [removeUser]
+  Future<Either<Failure, void>> removeUser(String userId);
 }

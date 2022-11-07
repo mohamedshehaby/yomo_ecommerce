@@ -15,6 +15,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthSignupEvent>(_onSignup);
     on<AuthLoginEvent>(_onLoggIn);
     on<AuthLogoutEvent>(_onLogout);
+    on<AuthRemoveAccountEvent>(_onRemoveAccount);
+  }
+
+  _onRemoveAccount(AuthRemoveAccountEvent event, Emitter<AuthState> emit) async {
+    emit(AuthLoadingState());
+    (await repository.removeUser(event.userId)).fold(
+      (failure) {
+        emit(AuthFailureState(failure: failure));
+      },
+      (_) => emit(AuthLoggedOutState()),
+    );
   }
 
   _onStarted(AuthStarted event, Emitter<AuthState> emit) async {

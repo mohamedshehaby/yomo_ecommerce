@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:yomo_ecommerce/presentation/blocs/auth/auth_bloc.dart';
 import 'package:yomo_ecommerce/presentation/blocs/cart/cart_bloc.dart';
 import 'package:yomo_ecommerce/presentation/resources/resources.dart';
-import 'package:yomo_ecommerce/presentation/widgets/order_summary.dart';
-
-import 'package:yomo_ecommerce/presentation/blocs/auth/auth_bloc.dart';
 import 'package:yomo_ecommerce/presentation/widgets/dialog/show_signin_dialog.dart';
+import 'package:yomo_ecommerce/presentation/widgets/order_summary.dart';
 
 part 'widgets/cart_item.dart';
 part 'widgets/checkout_button.dart';
@@ -36,11 +35,14 @@ class CartView extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: AppFlex.f2,
+                  flex: AppFlex.f3,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        OrderSummary(cart: cart),
+                        OrderSummary(
+                          subTotal: cart.subTotal,
+                          deliverFee: cart.deliverFee,
+                        ),
                         const CheckoutButton(),
                       ],
                     ),

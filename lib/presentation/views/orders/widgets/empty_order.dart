@@ -5,6 +5,16 @@ class EmptyOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(
+          Icons.insert_chart,
+          size: AppSize.s50,
+          color: ColorManager.primary.withAlpha(90),
+        ),
+        Text(AppStrings.noOrdersYet, style: Theme.of(context).textTheme.titleSmall),
+      ],
+    );
   }
 }

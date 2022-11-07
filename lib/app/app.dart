@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yomo_ecommerce/app/dependency_injection.dart';
 import 'package:yomo_ecommerce/presentation/blocs/auth/auth_bloc.dart';
 import 'package:yomo_ecommerce/presentation/blocs/cart/cart_bloc.dart';
+import 'package:yomo_ecommerce/presentation/blocs/order/order_bloc.dart';
 import 'package:yomo_ecommerce/presentation/resources/routes_manager.dart';
 import 'package:yomo_ecommerce/presentation/resources/theme_manager.dart';
 
-import 'package:yomo_ecommerce/presentation/blocs/order/order_bloc.dart';
+import '../presentation/blocs/profile/profile_bloc.dart';
 
 class MyApp extends StatelessWidget {
   /// Static [_instance] to be accessed from any where
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthBloc(repository: instance())..add(AuthStarted()),
         ),
-        BlocProvider(create: (context) => OrderBloc(instance()))
+        BlocProvider(create: (context) => OrderBloc(instance())),
+        BlocProvider(create: (context) => ProfileBloc(instance()))
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

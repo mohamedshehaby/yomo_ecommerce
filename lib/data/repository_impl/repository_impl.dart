@@ -229,4 +229,39 @@ class RepositoryImpl implements Repository {
       return Left(Failure.noInternet());
     }
   }
+
+  @override
+  Future<Either<Failure, AppUser>> getUser(String userId) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        // Tries to get the user info form firestore
+        final userDocData = (await _remoteDataSource.getUser(userId)).data();
+        final appUser = AppUser.fromMap(userDocData!);
+        return (Right(appUser));
+      } on FirebaseException catch (e) {
+        return Left(Failure(title: e.code, message: e.message ?? e.plugin));
+      } catch (e) {
+        return Left(Failure(title: AppStrings.errorHappened, message: e.toString()));
+      }
+    } else {
+      return Left(Failure.noInternet());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> removeUser(String userId) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        await _remoteDataSource.removeUser(userId);
+        await _localDataSource.removeUser();
+        return (const Right(null));
+      } on FirebaseException catch (e) {
+        return Left(Failure(title: e.code, message: e.message ?? e.plugin));
+      } catch (e) {
+        return Left(Failure(title: AppStrings.errorHappened, message: e.toString()));
+      }
+    } else {
+      return Left(Failure.noInternet());
+    }
+  }
 }

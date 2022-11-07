@@ -2,15 +2,30 @@
 
 Ecommerce App
 
-## Getting Started
+## Screens
+Login View
+![](assets/images/screen_shots/login.png)
 
-This project is a starting point for a Flutter application.
+Signup View
+![](assets/images/screen_shots/signup.png)
 
-A few resources to get you started if this is your first Flutter project:
+Home View
+![](assets/images/screen_shots/home.png)
+![](assets/images/screen_shots/home2.png)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Cart View
+![](assets/images/screen_shots/cart.png)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Checkout View
+![](assets/images/screen_shots/checkout2.png)
+![](assets/images/screen_shots/checkout.png)
+
+Orders View
+![](assets/images/screen_shots/orders.png)
+
+Order Details View
+![](assets/images/screen_shots/order_details.png)
+![](assets/images/screen_shots/order_details2.png)
+
+Profile View
+![](assets/images/screen_shots/profile.png)
